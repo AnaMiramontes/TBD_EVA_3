@@ -1,0 +1,198 @@
+MySQL Shell 8.0.35
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \c --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 30
+Server version: 8.0.35 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| company            |
+| empresa            |
+| examen_practico    |
+| information_schema |
+| mysql              |
+| orders             |
+| performance_schema |
+| sakila             |
+| sys                |
+| tbd_3              |
+| world              |
++--------------------+
+11 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  sakila  SQL > show tables;
++----------------------------+
+| Tables_in_sakila           |
++----------------------------+
+| actor                      |
+| actor_info                 |
+| address                    |
+| category                   |
+| city                       |
+| country                    |
+| customer                   |
+| customer_list              |
+| film                       |
+| film_actor                 |
+| film_category              |
+| film_list                  |
+| film_text                  |
+| inventory                  |
+| language                   |
+| nicer_but_slower_film_list |
+| payment                    |
+| rental                     |
+| sales_by_film_category     |
+| sales_by_store             |
+| staff                      |
+| staff_list                 |
+| store                      |
++----------------------------+
+23 rows in set (0.0021 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > desc actor;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| actor_id    | smallint unsigned | NO   | PRI | NULL              | auto_increment                                |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   | MUL | NULL              |                                               |
+| last_update | timestamp         | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+4 rows in set (0.0059 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from actor limit 10;
++----------+------------+--------------+---------------------+
+| actor_id | first_name | last_name    | last_update         |
++----------+------------+--------------+---------------------+
+|        1 | PENELOPE   | GUINESS      | 2006-02-15 04:34:33 |
+|        2 | NICK       | WAHLBERG     | 2006-02-15 04:34:33 |
+|        3 | ED         | CHASE        | 2006-02-15 04:34:33 |
+|        4 | JENNIFER   | DAVIS        | 2006-02-15 04:34:33 |
+|        5 | JOHNNY     | LOLLOBRIGIDA | 2006-02-15 04:34:33 |
+|        6 | BETTE      | NICHOLSON    | 2006-02-15 04:34:33 |
+|        7 | GRACE      | MOSTEL       | 2006-02-15 04:34:33 |
+|        8 | MATTHEW    | JOHANSSON    | 2006-02-15 04:34:33 |
+|        9 | JOE        | SWANK        | 2006-02-15 04:34:33 |
+|       10 | CHRISTIAN  | GABLE        | 2006-02-15 04:34:33 |
++----------+------------+--------------+---------------------+
+10 rows in set (0.0113 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select count(*) from actor;
++----------+
+| count(*) |
++----------+
+|      200 |
++----------+
+1 row in set (0.0063 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > CREATE TABLE actores_nuevos AS
+                                       -> SELECT *
+                                       -> FROM actores;
+ERROR: 1146 (42S02): Table 'sakila.actores' doesn't exist
+ MySQL  localhost:3306 ssl  sakila  SQL > CREATE TABLE actor AS SELECT * FROM sakila.actor;
+ERROR: 1050 (42S01): Table 'actor' already exists
+ MySQL  localhost:3306 ssl  sakila  SQL > use tbd_3;
+Default schema set to `tbd_3`.
+Fetching global names, object names from `tbd_3` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_3  SQL > CREATE TABLE actor AS SELECT * FROM sakila.actor;
+Query OK, 200 rows affected (0.0385 sec)
+
+Records: 200  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_3  SQL > select * from actor limit 10;
++----------+------------+--------------+---------------------+
+| actor_id | first_name | last_name    | last_update         |
++----------+------------+--------------+---------------------+
+|        1 | PENELOPE   | GUINESS      | 2006-02-15 04:34:33 |
+|        2 | NICK       | WAHLBERG     | 2006-02-15 04:34:33 |
+|        3 | ED         | CHASE        | 2006-02-15 04:34:33 |
+|        4 | JENNIFER   | DAVIS        | 2006-02-15 04:34:33 |
+|        5 | JOHNNY     | LOLLOBRIGIDA | 2006-02-15 04:34:33 |
+|        6 | BETTE      | NICHOLSON    | 2006-02-15 04:34:33 |
+|        7 | GRACE      | MOSTEL       | 2006-02-15 04:34:33 |
+|        8 | MATTHEW    | JOHANSSON    | 2006-02-15 04:34:33 |
+|        9 | JOE        | SWANK        | 2006-02-15 04:34:33 |
+|       10 | CHRISTIAN  | GABLE        | 2006-02-15 04:34:33 |
++----------+------------+--------------+---------------------+
+10 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > select contar_actores();
++------------------+
+| contar_actores() |
++------------------+
+|              200 |
++------------------+
+1 row in set (0.0053 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > desc actor;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| actor_id    | smallint unsigned | NO   |     | 0                 |                                               |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   |     | NULL              |                                               |
+| last_update | timestamp         | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+4 rows in set (0.0025 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > select actor_id from actor desc 10;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc 10' at line 1
+ MySQL  localhost:3306 ssl  tbd_3  SQL > select actor_id from actor limit 10;
++----------+
+| actor_id |
++----------+
+|        1 |
+|        2 |
+|        3 |
+|        4 |
+|        5 |
+|        6 |
+|        7 |
+|        8 |
+|        9 |
+|       10 |
++----------+
+10 rows in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > SELECT student_name, MIN(test_score), MAX(test_score)
+                                      ->        FROM student
+                                      -> ;
+ERROR: 1146 (42S02): Table 'tbd_3.student' doesn't exist
+ MySQL  localhost:3306 ssl  tbd_3  SQL > SELECT max(actor_id) from actor;
++---------------+
+| max(actor_id) |
++---------------+
+|           200 |
++---------------+
+1 row in set (0.0035 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > select agregar_actor('','');
++----------------------+
+| agregar_actor('','') |
++----------------------+
+|                  201 |
++----------------------+
+1 row in set (0.0083 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > drop function agregar_actor;
+Query OK, 0 rows affected (0.0120 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > drop function agregar_actor;
+Query OK, 0 rows affected (0.0095 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > select agregar_actor('xxxx','xxxx');
++------------------------------+
+| agregar_actor('xxxx','xxxx') |
++------------------------------+
+|                          201 |
++------------------------------+
+1 row in set (0.0070 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > select * from actor where actor_id = 201;
++----------+------------+-----------+---------------------+
+| actor_id | first_name | last_name | last_update         |
++----------+------------+-----------+---------------------+
+|      201 | xxxx       | xxxx      | 2024-04-22 17:48:47 |
++----------+------------+-----------+---------------------+
+1 row in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL >
