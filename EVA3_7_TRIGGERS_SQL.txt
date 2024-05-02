@@ -1,0 +1,113 @@
+MySQL Shell 8.0.36
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.36 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use tbd_3
+Default schema set to `tbd_3`.
+Fetching global names, object names from `tbd_3` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_3  SQL > CREATE TABLE account(acct_num INT, amount Dec
+DEC      DECIMAL
+ MySQL  localhost:3306 ssl  tbd_3  SQL > CREATE TABLE account(acct_num INT, amount DECIMAL(10,2));
+Query OK, 0 rows affected (0.1904 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > DESC account;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| acct_num | int           | YES  |     | NULL    |       |
+| amount   | decimal(10,2) | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+2 rows in set (0.0033 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > SELECT @mensaje;
++----------+
+| @mensaje |
++----------+
+| NULL     |
++----------+
+1 row in set (0.0010 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > INSERT into account value(1, 1000);
+Query OK, 1 row affected (0.0902 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > SELECT @mensaje;
++---------------------------+
+| @mensaje                  |
++---------------------------+
+| Cuenta agregada con exito |
++---------------------------+
+1 row in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > SELECT account;
+ERROR: 1054 (42S22): Unknown column 'account' in 'field list'
+ MySQL  localhost:3306 ssl  tbd_3  SQL > SELECT * FROM account;
++----------+---------+
+| acct_num | amount  |
++----------+---------+
+|        1 | 1000.00 |
++----------+---------+
+1 row in set (0.0010 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > INSERT into account value(2, 1000);
+Query OK, 1 row affected (0.0887 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > SELECT @suma;
++-------+
+| @suma |
++-------+
+|  NULL |
++-------+
+1 row in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > SE
+SELECT  SET
+ MySQL  localhost:3306 ssl  tbd_3  SQL > Set @suma = 0;
+Query OK, 0 rows affected (0.0011 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > INSERT into account value(3, 1000);
+Query OK, 1 row affected (0.0889 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > SELECT @suma;
++---------+
+| @suma   |
++---------+
+| 1000.00 |
++---------+
+1 row in set (0.0010 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > INSERT into account value(3, 1000);
+Query OK, 1 row affected (0.0102 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > SELECT @suma;
++---------+
+| @suma   |
++---------+
+| 2000.00 |
++---------+
+1 row in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > CREATE TABLE bitacora(id INT AUTO_INCREMENT KEY, descripcion var)
+VARBINARY     VARCHAR       VARCHARACTER
+ MySQL  localhost:3306 ssl  tbd_3  SQL > CREATE TABLE bitacora(id INT AUTO_INCREMENT KEY, descripcion VARCHAR(50));
+Query OK, 0 rows affected (0.1732 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > SELECT * FROM account;
++----------+---------+
+| acct_num | amount  |
++----------+---------+
+|        1 | 1000.00 |
+|        2 | 1000.00 |
+|        3 | 1000.00 |
+|        3 | 1000.00 |
++----------+---------+
+4 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > DELETE FROM account WHERE id = 3;
+ERROR: 1054 (42S22): Unknown column 'id' in 'where clause'
+ MySQL  localhost:3306 ssl  tbd_3  SQL > DELETE FROM account WHERE acct_num = 3;
+Query OK, 2 rows affected (0.0948 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL > SELECT * FROM account;
++----------+---------+
+| acct_num | amount  |
++----------+---------+
+|        1 | 1000.00 |
+|        2 | 1000.00 |
++----------+---------+
+2 rows in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  tbd_3  SQL >

@@ -1,0 +1,4 @@
+create trigger borrar_cuanta after delete on account
+for each row
+	insert into bitacora(descripcion) value ("Borrado de cuenta");
+    
